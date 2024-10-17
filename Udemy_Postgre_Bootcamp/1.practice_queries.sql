@@ -110,3 +110,66 @@ SELECT
     AVG(LENGTH(contents))
 FROM
     comments
+
+
+
+SELECT
+    u.first_name,
+    u.last_name,
+    paid
+FROM
+    users AS u
+        JOIN
+            orders AS o
+                ON u.id = o.user_id
+
+
+SELECT
+    *
+FROM
+    products
+ORDER BY price, weight;
+
+
+SELECT
+    *
+FROM products
+ORDER BY price DESC
+OFFSET 1
+LIMIT 2;
+
+
+(
+SELECT
+    *
+FROM
+    products
+ORDER BY price DESC
+LIMIT 4
+    )
+UNION ALL
+(
+SELECT *
+ FROM products
+ ORDER BY price / weight DESC
+ LIMIT 4
+ );
+
+
+
+ (
+    SELECT
+        manufacturer
+    FROM
+        phones
+    WHERE price < 170
+)
+UNION
+(
+    SELECT
+        manufacturer
+    FROM
+        phones
+    GROUP BY manufacturer
+    HAVING COUNT(*) > 2
+)
