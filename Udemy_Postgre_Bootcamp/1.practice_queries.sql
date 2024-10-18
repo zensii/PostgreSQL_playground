@@ -257,4 +257,26 @@ SELECT
     (SELECT MIN(price) FROM products) as min_price,
     (SELECT AVG(price) FROM products) as avg_price;
 
+SELECT
+    name,
+    GREATEST(weight * 2, 30)
+FROM
+    products;
 
+
+SELECT
+    name,
+    LEAST(weight * 2, 30)
+FROM
+    products;
+
+
+SELECT
+    name,
+    price,
+    CASE
+        WHEN price > 600 THEN 'high'
+        WHEN price > 300 THEN 'medium'
+        ELSE 'cheap'
+    END
+FROM products;
