@@ -193,3 +193,51 @@ FROM (SELECT user_id, COUNT(product_id) AS count_of_orders
 SELECT
     COUNT(id) / COUNT(DISTINCT user_id) AS order_per_user
 FROM orders;
+
+
+SELECT
+    MAX(p.average_paid_per_product)
+FROM
+(SELECT
+    o.user_id,
+    ROUND(AVG(p.price),2) AS average_paid_per_product
+FROM orders as o
+JOIN products as p
+ON o.product_id = p.id
+GROUP BY o.user_id) AS p
+;
+
+
+SELECT
+    users.first_name
+
+FROM users
+JOIN
+     (SELECT
+          user_id
+      FROM
+          orders
+      WHERE
+          product_id = 3 ) AS o
+ON o.user_id = users.id;
+
+
+SELECT name
+FROM products
+WHERE department NOT IN (SELECT department FROM products WHERE price < 100);
+
+
+SELECT
+    name,
+    department,
+    price
+FROM products
+WHERE price > ALL (
+    SELECT
+        price
+    FROM products
+    WHERE department = 'Industrial'
+    );
+
+
+    
