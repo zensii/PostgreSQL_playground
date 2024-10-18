@@ -172,4 +172,24 @@ UNION
         phones
     GROUP BY manufacturer
     HAVING COUNT(*) > 2
-)
+);
+
+
+
+SELECT
+    name,
+    price,
+    ROUND(price / (select max(price) from products)::NUMERIC, 3) AS price_ratio
+FROM products;
+
+
+SELECT
+    AVG(p.count_of_orders)
+FROM (SELECT user_id, COUNT(product_id) AS count_of_orders
+      FROM orders
+      GROUP BY user_id
+      ) AS p;
+
+SELECT
+    COUNT(id) / COUNT(DISTINCT user_id) AS order_per_user
+FROM orders;
