@@ -240,4 +240,21 @@ WHERE price > ALL (
     );
 
 
-    
+    SELECT
+    name,
+    (
+        SELECT
+            COUNT(*)
+        FROM orders as o
+        WHERE o.product_id = p1.id
+        )
+FROM products as p1;
+
+
+
+SELECT
+    (SELECT MAX(price) FROM products) as max_price,
+    (SELECT MIN(price) FROM products) as min_price,
+    (SELECT AVG(price) FROM products) as avg_price;
+
+
