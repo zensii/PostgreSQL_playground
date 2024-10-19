@@ -280,3 +280,37 @@ SELECT
         ELSE 'cheap'
     END
 FROM products;
+
+
+SELECT
+    name,
+    department,
+    price
+FROM(
+        SELECT
+            name,
+            department,
+            price,
+            RANK() OVER (PARTITION BY department ORDER BY price DESC) AS rank_by_price
+        FROM products
+
+    ) as ranked
+WHERE rank_by_price = 1
+ORDER BY price DESC;
+
+SELECT
+    p1.name,
+    p1.department,
+    p1.price
+FROM
+    products as p1
+WHERE price =
+      (
+          SELECT max(price)
+          FROM products AS p2
+          WHERE p1.department = p2.department
+      )
+ORDER BY price DESC;
+
+
+
